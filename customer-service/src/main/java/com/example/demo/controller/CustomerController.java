@@ -12,16 +12,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.service.annotation.PutExchange;
 
-import com.example.demo.customerRepository;
+import com.example.demo.dao.customerRepository;
 import com.example.demo.model.Customer;
 @RequestMapping("/customers")
 @RestController
-public class ccustomerController {
+public class CustomerController {
 private customerRepository customerRepository;
 
-public ccustomerController(com.example.demo.customerRepository customerRepository) {
+public CustomerController(customerRepository customerRepository) {
 	this.customerRepository = customerRepository;
 }
 
