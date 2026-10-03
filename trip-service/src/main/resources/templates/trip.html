@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vehicle Rental</title>
+<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<script>
+window.CFG = {
+  title: 'Trips', one: 'Trip', svc: 'trip-service', port: 8086,
+  api: 'http://localhost:8086/trips', main: 'title',
+  cols: [{k:'title', l:'Trip'}, {k:'routeDetails', l:'Route'}, {k:'vehicleId', l:'Vehicle ID'}, {k:'driverId', l:'Driver ID'}, {k:'dueDate', l:'Due Date'}],
+  fields: [
+    {k:'title', l:'Title', t:'text'},
+    {k:'routeDetails', l:'Route Details', t:'text'},
+    {k:'vehicleId', l:'Vehicle ID', t:'int'},
+    {k:'driverId', l:'Driver ID', t:'int'},
+    {k:'dueDate', l:'Due Date', t:'date', editOnly:true}
+  ],
+  params: {vehicleId:'vehicleId', driverId:'driverId'},
+  auto: 'dueDate',
+  putId: true
+};
+</script>
+<script th:src="@{/app.js}"></script>
+</body>
+</html>

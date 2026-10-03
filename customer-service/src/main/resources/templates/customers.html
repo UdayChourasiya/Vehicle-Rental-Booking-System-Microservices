@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vehicle Rental</title>
+<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<script>
+window.CFG = {
+  title: 'Customers', one: 'Customer', svc: 'customer-service', port: 8081,
+  api: 'http://localhost:8081/customers', main: 'name',
+  cols: [{k:'name', l:'Customer'}, {k:'email', l:'Email'}, {k:'mobile', l:'Mobile'}],
+  fields: [
+    {k:'name', l:'Name', t:'text'},
+    {k:'email', l:'Email', t:'email'},
+    {k:'mobile', l:'Mobile', t:'phone'}
+  ]
+};
+</script>
+<script th:src="@{/app.js}"></script>
+</body>
+</html>

@@ -101,7 +101,7 @@ return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id  "+id+"  Not Found")
 		}
 		return ResponseEntity.ok(feedback)	;
 }
-@PutMapping
+@PutMapping("/{id}")
 public ResponseEntity<?> UpdateFeedBack(@PathVariable("id")int id,@RequestBody FeedBack feedBack)
 {
 	FeedBack feedback=feedBackRepository.findById(id).orElse(null);	

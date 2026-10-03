@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vehicle Rental</title>
+<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<script>
+window.CFG = {
+  title: 'Vehicles', one: 'Vehicle', svc: 'vehicle-service', port: 8082,
+  api: 'http://localhost:8082/vehicles', main: 'vehiclename',
+  cols: [{k:'vehiclename', l:'Vehicle'}, {k:'model', l:'Model'}, {k:'type', l:'Type'}, {k:'dailyfee', l:'Daily Fee'}],
+  fields: [
+    {k:'vehiclename', l:'Vehicle Name', t:'text'},
+    {k:'model', l:'Model', t:'text'},
+    {k:'type', l:'Type', t:'text'},
+    {k:'dailyfee', l:'Daily Fee', t:'int'}
+  ],
+  alias: {vehiclename: ['vehicleName', 'Vehiclename', 'vehicle_name', 'name']}
+};
+</script>
+<script th:src="@{/app.js}"></script>
+</body>
+</html>

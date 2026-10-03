@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vehicle Rental - Dashboard</title>
+<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<aside>
+  <div class="brand"><div class="logo"><i>c</i></div><span>Dashboard</span></div>
+  <nav id="menu"></nav>
+</aside>
+<div class="right">
+  <header>
+    <div class="crumb">Dashboard / <b>Services</b></div>
+    <label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input id="q" placeholder="Search services..." oninput="draw()"></label>
+    <div class="tools">
+      <a class="db" href="http://localhost:8761" target="_blank" rel="noopener" title="Eureka registry"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></a>
+      <div class="me"><span class="pic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.5"/><path d="M3 24c0-5 4-8 9-8s9 3 9 8z"/></svg></span><div><b>Uday Chourasiya</b><small>udaychourasiya221@gmail.com</small></div>
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;color:#8a97a8"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+  </header>
+  <main>
+    <h2>Services</h2>
+    <p>Manage every Vehicle Rental service from one place.</p>
+    <section class="grid" id="grid"></section>
+  </main>
+</div>
+<div id="toast"></div>
+<script>
+const P = {
+  dash:'<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+  car:'<path d="M3 13l2-6h14l2 6v5h-2M3 13v5h2M3 13h18"/><circle cx="7.5" cy="17.5" r="2"/><circle cx="16.5" cy="17.5" r="2"/>',
+  wheel:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M12 14v7M10 11.5L3.5 10M14 11.5l6.5-1.5"/>',
+  cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/>',
+  pay:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/>',
+  pin:'<path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  chat:'<path d="M21 12a8 8 0 01-11.5 7.2L3 21l1.8-5.5A8 8 0 1121 12z"/>',
+  gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',
+  go:'<path d="M5 12h14M13 6l6 6-6 6"/>'
+};
+const svg = k => `<svg viewBox="0 0 24 24">${P[k]}</svg>`;
+const SVC = [
+  {t:'Customers', i:'user',  c:'blue',   s:'Profiles & contact details'},
+  {t:'Vehicles',  i:'car',   c:'green',  s:'Fleet, models & daily fees'},
+  {t:'Drivers',   i:'wheel', c:'purple', s:'Licenses & specialization'},
+  {t:'Bookings',  i:'cal',   c:'amber',  s:'Rentals by customer & vehicle'},
+  {t:'Payments',  i:'pay',   c:'teal',   s:'Payments per booking'},
+  {t:'Trips',     i:'pin',   c:'rose',   s:'Routes, drivers & vehicles'},
+  {t:'Feedback',  i:'chat',  c:'indigo', s:'Ratings & comments'}
+];
+const PORTS = {Customers:8081, Vehicles:8082, Drivers:8083, Bookings:8084, Payments:8085, Trips:8086, Feedback:8087};
+const PATH = {Feedback:'feedbacks'};
+SVC.forEach(s => { s.p = PORTS[s.t]; s.n = '–'; });
+const slug = s => `http://localhost:${s.p}/` + s.t.replace(/s$/, '').toLowerCase();
+
+function loadCounts(){
+  SVC.forEach(s => fetch(`http://localhost:${s.p}/${PATH[s.t] || s.t.toLowerCase()}`)
+    .then(r => r.json())
+    .then(a => { s.n = a.length; const e = document.getElementById('n_' + s.t); if(e) e.textContent = a.length; })
+    .catch(() => {}));
+}
+function menu(){
+  document.getElementById('menu').innerHTML =
+    `<a class="on" href="/dashboard">${svg('dash')}<span>Dashboard</span></a>` +
+    SVC.map(s => `<a href="${slug(s)}">${svg(s.i)}<span>${s.t}</span></a>`).join('') +
+    `<a class="set" href="#">${svg('gear')}<span>Settings</span></a>`;
+}
+function draw(){
+  const q = document.getElementById('q').value.toLowerCase();
+  const list = SVC.filter(s => (s.t + ' ' + s.s).toLowerCase().includes(q));
+  document.getElementById('grid').innerHTML = list.map(s => `
+    <article class="card">
+      <header><span class="tile ${s.c}">${svg(s.i)}</span><h3>${s.t}</h3></header>
+      <ul><li><span>Summary</span><b>${s.s}</b></li><li><span>Entries</span><b id="n_${s.t}">${s.n}</b></li><li><span>Port</span><b>${s.p}</b></li></ul>
+      <footer><small>Manage ${s.t.toLowerCase()}</small><button class="go" aria-label="Manage ${s.t}" onclick="location.href='${slug(s)}'">${svg('go')}</button></footer>
+    </article>`).join('') || '<div class="empty">No service matches your search.</div>';
+}
+menu(); draw(); loadCounts();
+</script>
+</body>
+</html>

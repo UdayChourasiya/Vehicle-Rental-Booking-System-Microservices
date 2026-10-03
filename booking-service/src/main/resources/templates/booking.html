@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vehicle Rental</title>
+<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<script>
+window.CFG = {
+  title: 'Bookings', one: 'Booking', svc: 'booking-service', port: 8084,
+  api: 'http://localhost:8084/bookings',
+  cols: [{k:'customerId', l:'Customer ID'}, {k:'vehicleId', l:'Vehicle ID'}, {k:'bookingDate', l:'Booking Date'}, {k:'durationDays', l:'Duration (days)'}, {k:'status', l:'Status'}],
+  fields: [
+    {k:'customerId', l:'Customer ID', t:'int'},
+    {k:'vehicleId', l:'Vehicle ID', t:'int'},
+    {k:'durationDays', l:'Duration (days)', t:'int'},
+    {k:'status', l:'Status', t:'text'}
+  ],
+  params: {customerId:'customerId', vehicleId:'vehicleId'},
+  auto: 'bookingDate'
+};
+</script>
+<script th:src="@{/app.js}"></script>
+</body>
+</html>

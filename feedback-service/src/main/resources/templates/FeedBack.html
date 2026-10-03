@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vehicle Rental</title>
+<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<script>
+window.CFG = {
+  title: 'Feedback', one: 'Feedback', svc: 'feedback-service', port: 8087,
+  api: 'http://localhost:8087/feedbacks',
+  cols: [{k:'customerId', l:'Customer ID'}, {k:'tripId', l:'Trip ID'}, {k:'bookingId', l:'Booking ID'}, {k:'ratingScore', l:'Rating'}, {k:'comments', l:'Comments'}, {k:'feedbackDate', l:'Date'}],
+  fields: [
+    {k:'customerId', l:'Customer ID', t:'int'},
+    {k:'tripId', l:'Trip ID', t:'int'},
+    {k:'bookingId', l:'Booking ID', t:'int'},
+    {k:'ratingScore', l:'Rating (1-5)', t:'int', min:1, max:5},
+    {k:'comments', l:'Comments', t:'text'}
+  ],
+  params: {tripId:'tripId', bookingId:'bookingId', customerId:'customerId'},
+  auto: 'feedbackDate',
+  putId: true
+};
+</script>
+<script th:src="@{/app.js}"></script>
+</body>
+</html>

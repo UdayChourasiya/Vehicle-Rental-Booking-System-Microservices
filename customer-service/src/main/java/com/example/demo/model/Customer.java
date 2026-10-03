@@ -12,7 +12,7 @@ public class Customer {
 private int id;
 private String name;
 private String email;
-private int mobile;
+private Long mobile;
 public int getId() {
 	return id;
 }
@@ -31,10 +31,10 @@ public String getEmail() {
 public void setEmail(String email) {
 	this.email = email;
 }
-public int getMobile() {
+public Long getMobile() {
 	return mobile;
 }
-public void setMobile(int mobile) {
+public void setMobile(Long mobile) {
 	this.mobile = mobile;
 }
 

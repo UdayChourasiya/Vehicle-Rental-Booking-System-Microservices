@@ -80,11 +80,10 @@ return ResponseEntity.notFound().build();
 }
 return ResponseEntity.ok(trip);
 }
-@PutMapping
-public ResponseEntity<Trip> UpdateTrip(@RequestBody Trip trip)
-{
+@PutMapping("/{id}")
+public ResponseEntity<Trip> UpdateTrip(@PathVariable("id") int id, @RequestBody Trip trip){
 Trip trip1= tripRepository.save(trip);	
-return ResponseEntity.ok(trip);
+return ResponseEntity.ok(trip1);
 
 }
 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vehicle Rental</title>
+<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<script>
+window.CFG = {
+  title: 'Payments', one: 'Payment', svc: 'payment-service', port: 8085,
+  api: 'http://localhost:8085/payments',
+  cols: [{k:'customerId', l:'Customer ID'}, {k:'bookingId', l:'Booking ID'}, {k:'amount', l:'Amount'}, {k:'paymentDate', l:'Payment Date'}, {k:'status', l:'Status'}],
+  fields: [
+    {k:'customerId', l:'Customer ID', t:'int'},
+    {k:'bookingId', l:'Booking ID', t:'int'},
+    {k:'amount', l:'Amount', t:'int'},
+    {k:'status', l:'Status', t:'text'}
+  ],
+  params: {CustomerId:'customerId', bookingId:'bookingId'},
+  auto: 'paymentDate'
+};
+</script>
+<script th:src="@{/app.js}"></script>
+</body>
+</html>
